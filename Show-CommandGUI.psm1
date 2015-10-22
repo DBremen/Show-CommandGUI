@@ -177,14 +177,14 @@ function Show-CommandGUI($command){
                                     $row++
                                     continue
                                 }
-                                elseif($parameter.Name -like '*FilePath*'){
+                                elseif($parameter.Name -like '*file*'){
                                     New-TextBox -Name $parameter.Name -Column 1 -row $Row -Margin 3 -ToolTip $toolTip -On_TextChanged $sb -Text $default
                                     New-Button -Name "btn$($parameter.Name)" -Content "..." -Column 2 -row $Row -Margin 3 -On_Click{
                                         $path = Get-File
                                         ($this.Parent.Children | where {$_.Name -eq $this.Name.Remove(0,3)}).Text  = $path
                                     }
                                 }
-                                elseif($parameter.Name -like '*FolderPath*'){
+                                elseif($parameter.Name -like '*folder*'){
                                     New-TextBox -Name $parameter.Name -Column 1 -row $Row -Margin 3 -ToolTip $toolTip -On_TextChanged $sb -Text $default
                                     New-Button -Name "btn$($parameter.Name)" -Content "..." -Column 2 -row $Row -Margin 3 -On_Click{
                                         $path = Get-Folder
