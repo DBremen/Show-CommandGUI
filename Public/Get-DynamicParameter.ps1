@@ -1,35 +1,12 @@
 ﻿function Get-DynamicParameter {
-    [CmdletBinding()]
     Param(
         [Parameter(ValueFromPipeline=$True,Mandatory=$true)]
-        [object]$InputObject,
-        [Parameter(ValueFromPipeline=$false,Mandatory=$false)]
-        [string[]]$ExclusionList = @('parameterValue','isDynamic','defaultValue','required','aliases','type','Position','pipelineInput','globbing'),
-        [Parameter(ValueFromPipeline=$false,Mandatory=$false)]
-        [hashtable]$SelectLookup = @{
-            required = @{N='Mandatory';E={$_.required}}
-            position = @{N='Position';E={$_.position}}
-            defaultValue = @{N='Default';E={$_.defaultValue}}
-            type = @{N='Type';e={& ([scriptblock]::Create("[$(if('SwitchParameter' -eq $_.type.name){'Switch'}else{$_.type.name})]"))}}
-            parameterValueGroup = @{N='ValidateSet';e={$_.parameterValueGroup.parameterValue}}
-        }
+        [ValidateScript({$_.GetType() -in @([System.Management.Automation.FunctionInfo],[System.Management.Automation.CmdletInfo])})]$Command
     )
-    Begin{}
-    Process{
-    $Param = $(
-        if ($_){
-            $_
-        } else {
-            $InputObject
-        }
-    )
-    $SelectProperties = @{
-        PropertyList = ((($Param | Get-Member -MemberType Properties | select -ExpandProperty Name) + 'defaultValue') | select -Unique)
-        ExclusionList = $ExclusionList
-        Lookup = $SelectLookup
-    }
-    
-    $Param | select (New-PoshSelectStatement @SelectProperties)
-    }
-    End{}
+    (
+        $Command | Get-Help
+        #Get-help Disable-IAIUser
+    ).Syntax.syntaxItem.parameter | ?{
+        $_.name -notin @('WhatIf','Confirm')
+    } | Format-DynamicParameter
 }
