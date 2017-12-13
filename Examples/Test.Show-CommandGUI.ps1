@@ -35,8 +35,4 @@
     }
 }
 
-Import-Module "$PSScriptRoot\Show-CommandGUI.psm1"
-Show-CommandGUI test
-
-
-
+Show-CommandGUI -command test
