@@ -17,16 +17,16 @@
 	GUID = 'cced36a8-5dda-4a8d-ae17-ceb69c538e65'
 
 	# Author of this module
-	Author = 'Chirishman'
+	Author = 'DBremen, Chirishman'
 
 	# Company or vendor of this module
 	# CompanyName = ''
 
 	# Copyright statement for this module
-	Copyright = '(c) 2017 Chirishman. All rights reserved.'
+	# Copyright = ''
 
 	# Description of the functionality provided by this module
-	# Description = ''
+	Description = 'This module attempts to provide a more complete and flexible replacement for the built-in Show-Command tool'
 
 	# Minimum version of the Windows PowerShell engine required by this module
 	# PowerShellVersion = ''
@@ -65,7 +65,14 @@
 	# NestedModules = @()
 
 	# Functions to export from this module, for best performance, do not use wildcards and do not delete the entry, use an empty array if there are no functions to export.
-	# FunctionsToExport = @()
+	FunctionsToExport = @(
+		'Assert-MandatoryTabControls',
+		'Format-DynamicParameter',
+		'Get-DynamicParameter',
+		'Get-GroupedDynamicParameter',
+		'New-PoshSelectStatement',
+		'Show-CommandGUI'
+	)
 
 	# Cmdlets to export from this module, for best performance, do not use wildcards and do not delete the entry, use an empty array if there are no cmdlets to export.
 	#CmdletsToExport = @()
@@ -91,19 +98,19 @@
 		PSData = @{
 
 			# Tags applied to this module. These help with module discovery in online galleries.
-			# Tags = @()
+			Tags = @('ScriptedUI','WPF')
 
 			# A URL to the license for this module.
 			# LicenseUri = ''
 
 			# A URL to the main website for this project.
-			# ProjectUri = ''
+			ProjectUri = 'https://github.com/DBremen/Show-CommandGUI'
 
 			# A URL to an icon representing this module.
 			# IconUri = ''
 
 			# ReleaseNotes of this module
-			# ReleaseNotes = ''
+			ReleaseNotes = "This is module is a function to build a GUI to provide parameter values for a command on the fly and populate default values. It now supports Dynamic Parameters as well.`r`nThis code depends on several functions from the module ShowUI (github)(PowerShell Gallery)`r`nThere is a known current bug causing the Run button to remain grayed out if none of the parameters of a command are Mandatory."
 
 		} # End of PSData hashtable
 
